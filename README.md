@@ -1,6 +1,4 @@
-
-
-kl: inut data
+0. KL: inut data
 ---------------------
 ### Batch Level
 - Fastpath 1: scheduled/tide
@@ -20,15 +18,17 @@ Platform
 -----------------------
 ```
 KL 3.5
-
+-connected recognition-
+- input data are from stage (pre processing)
+- output data are for post processing
 Hygiene	
-  Match                 	Management &
+Match                 	Management &
 	|						      
 	v					      	
 Reference Base (RB)       Control System
 						      	
 ```
-Hygiene Process
+1. Hygiene Process
 -----------------------
 ### Pre-hygiene process:
 - Performs up-front validations:
@@ -77,7 +77,7 @@ Hygiene Process: COA
 - Canadian Address:
 		retorn CPC NCOA Codes & CPC Address Components
 
-Hygiene Process: Address Examples
+#Hygiene Process: Address Examples
 -----------------------
 ###Address Before Hygiene
 ```
@@ -117,3 +117,67 @@ Hygiene Process: Hygiene output files
 - Control files
 	- HYGCOMPLETE
 	- PROPERCOMPLETE
+
+2. Knowledge Link: Match Process
+-----------------------
+- HYGCOMPLETE and HASH output file as input of MP
+- 2 tyoe of MP, Standard and Overlay:
+	- Fastpath option 1 & 2 - standart MP
+	- Fastpath option 3 - overlay 
+### Drop Rules
+- minumum requirement for a record to receive at least one / two / more keys
+- keep reference base clean
+- customizable at country level
+	- Example: Name & address ... a rule
+
+### Hash Match
+** cretical concept when working with KL**
+- HP create Hashkey on each HASH output record
+- MP locate that hash key in a record previously loated to the reference base
+
+### clusters
+- **Cluster** - high level match rule designed to bucket groups of records together for a specific key type (Individual, Household, address, bussiness, custom)
+	- subCluster: detailed match rule which defines the creation of a clustervalue for all records that meet criteria for inclusion in the cluster/subcluster
+	- cluster value: text string at the subcluster level consisting of elements concatenated together to produce a string matching string
+- Cluster with multi sbuclusters
+	- A: Fist Name + Last Name Segment1 + Address
+	- B: Fist Name + Last Name Segment2 + Address
+		- Last name is Taylor jones, then it has two segmentations
+		
+### Anti-join
+- **anti-join** - any field used to allow for matching between records with less information and records with more information, without creating an overmatch of 2/more records with conflicting information
+
+- apply at cluster level
+```
+1	john	smith		123 main st, 12345	**100**
+2	john	smith	SR	123 main st, 12345	**100**
+3	john	smith	JR	123 main st, 12345	**101**
+```
+	- generation qualifier matters!!
+
+## change of address
+- coa matching requires a hard link between 2 records
+- HP generates a 2nd record for every input record that has a *hit* from mover software (NCOA, CNCOA)
+	- the 2nd record has same input_sequence_numbber and all other fields except address field.
+- KL3 indentifies **this link via the input sequence number**:
+```
+xx	seq	first	last	addr			KL created rec	ID
+1	123	john	smith	123 main st,1234	N		120
+2	123	john	smith	456 Elm st, 67890	Y		120
+```
+
+- Antijoins are applied to COA clusters (configurable) to prevent over matching
+
+3. (Post Processing) Output and Record
+--------------------------------------
+### Output files -> /mtch_out
+- us/ca/zz base
+- us/ca coa
+- us/ca drops
+- ID changes (1 file per entity tpye)
+- MTCHCOMPLETE
+### Report Files -> /mtch_rpt
+- batch overview
+- hygiene
+- source overview
+- source overlap
