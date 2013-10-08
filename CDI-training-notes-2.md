@@ -8,3 +8,12 @@ use certain key fields to determine if two otherwise apparently equal records ob
 - confirmed exact street name (for address clusters)
 - middle initial
 - client hard keys
+
+Matching: Over/Under matching
+=============================
+- Over matching: identifying input records with the same ID values (Individual, address, household, etc), but when reviewed by another person, may not be a good match;
+- Under matching: identifying input records with differing ID values (...) that when reviewed by another person, may appear to be the same.
+
+      ```Pretty similar as over/under fitting in mathmatics.```
+
+
