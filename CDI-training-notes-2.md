@@ -17,3 +17,13 @@ Matching: Over/Under matching
       ```Pretty similar as over/under fitting in mathmatics.```
 
 
+How to implement the common KL CDI process as part of a KC marketing database
+============================================================================
+- preparing staged data from input data to KL
+- Creating the KL input file
+- KL processing concerns
+- Understanding KL output data
+- Preparing KL staging process
+- CDI "Besting" process
+- CDI core data model
+
