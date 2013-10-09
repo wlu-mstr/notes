@@ -33,25 +33,28 @@ Reference Base (RB)       Control System
 ### Pre-hygiene process:
 - Performs up-front validations:
 	- File
-	- File counts
-	- sequence number uniqueness assigns a date/time to the batch-every file associated with the batch will have the same prefix so they can be tied together:
+	- File counts: each file has a file count;
+	- sequence number uniqueness: for each record;
+	- assigns a date/time to the batch-every file associated with the batch will have the same prefix so they can be tied together:
 		```<client>_<YYYYMMDD>_<HHMM>```
 - Removes "bad" characters
 - Seperates, sorts and segments all the data by contry 
 	- US
 	- CA
 	- ZZ
+	
+	``` for performance purpose, input files would be segmented into a large amount of small files (paralle process)```
 
 ###Country Specific Functions : US, CA
 - address standardization, verification and parsing
-	US-CASS, DPV, DSF2, LACS
-	CA-SERP
+	- US-CASS, DPV, DSF2, LACS
+	- CA-SERP
 - Invalid Addr Flag
-	non-validated addr
-	based on street addr/city values
-	uses **merkle contry specific vulgar address tables**
+	- non-validated addr
+	- based on street addr/city values
+	- uses **merkle contry specific vulgar address tables**
 - Create Street Name Match code
-	compensates for some miss-spelling and transportation
+	- compensates for some miss-spelling and transportation, e.g., Main Street -> MS
 - COA: Change of address
 - Gonvernment ID Validation
 
