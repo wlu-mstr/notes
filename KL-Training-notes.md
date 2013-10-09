@@ -32,10 +32,10 @@ Reference Base (RB)       Control System
 -----------------------
 ### Pre-hygiene process:
 - Performs up-front validations:
-	File
-	File counts
-	sequence number uniqueness assigns a date/time to the batch-every file associated with the batch will have the same prefix so they can be tied together:
-		<client>_<YYYYMMDD>_<HHMM>
+	- File
+	- File counts
+	- sequence number uniqueness assigns a date/time to the batch-every file associated with the batch will have the same prefix so they can be tied together:
+		```<client>_<YYYYMMDD>_<HHMM>```
 - Removes "bad" characters
 - Seperates, sorts and segments all the data by contry 
 	- US
